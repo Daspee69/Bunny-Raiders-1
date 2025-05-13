@@ -1,4 +1,4 @@
-#include<constants.h>
+#include "constant.h"
 
 typedef struct { //structure pour creer des attaques
 	char *name;
