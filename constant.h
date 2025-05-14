@@ -1,11 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <time.h>
-#include <errno.h>
-#include <unistd.h>
-#include<unistd.h>
 #define NAMESIZE 21
 #define LIGNES 25
 #define COLONNES 120
