@@ -1,4 +1,13 @@
-#include <Computer.h>
+#include "Computer.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <time.h>
+#include <errno.h>
+#include <unistd.h>
+#include<unistd.h>
+
 
 void Computer(int *dif, int *choixP, int *choixA, int *choixD, Bot *ra, Bot *rb, Bot *rc, Bot *ja, Bot *jb, Bot *jc) {
 	int chance=rand()%101;
