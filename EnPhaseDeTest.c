@@ -1785,22 +1785,42 @@ void Computer(int *dif, int *choixP, int *choixA, int *choixD, Bot *ra, Bot *rb,
 			}
 		}
 	}
-	if(CheckPerso1(*choixP, ra, rb, rc) && CheckStamina(*choixP, *choixA, ra, rb, rc) && CheckPerso2(*choixD, ja, jb, jc)){
-		/// un vide monstrueux
-	}else{
-	    Computer(dif, choixP, choixA, choixD, ra, rb, rc, ja, jb, jc);
+	if(CheckPerso1(*choixP, ra, rb, rc)){
+	do {
+		*choixP=(rand()%3)+1;
+	}
+	while(CheckPerso1(*choixP, ra, rb, rc));
+	}
+	if(CheckStamina(*choixP, *choixA, ra, rb, rc)){
+	do {
+		*choixA=(rand()%3)+1;
+	}
+	while(CheckStamina(*choixP, *choixA, ra, rb, rc));
+	}
+	if(CheckPerso2(*choixD, ja, jb, jc)){
+	do {
+		*choixD=(rand()%3)+1;
+	}
+	while(CheckPerso2(*choixD, ja, jb, jc));
 	}
 }
 void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaques du personnage selectionner durant le tour
 	int k=0;
 	if(*choixP==1) {
-		printf(BWHT"|1:");
+	    if(aa->stamina>=2){
+		    printf(BGRN);
+		}
+		printf("|1:");
 		for(int i=0; i<strlen(aa->normal.name); i++) {
 			printf("%c", *(aa->normal.name+i));
 			k=i;
 		}
 		for(int i=k; i<20; i++) {
 			printf(" ");
+		}
+		printf(RESETT);
+		if(aa->stamina>=8){
+		    printf(BGRN);
 		}
 		printf("2:");
 		for(int i=0; i<strlen(aa->special.name); i++) {
@@ -1810,6 +1830,10 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		for(int i=k; i<20; i++) {
 			printf(" ");
 		}
+		printf(RESETT);
+		if(aa->utiliunique==0){
+		    printf(BGRN);
+		}
 		printf("3:");
 		for(int i=0; i<strlen(aa->unique.name); i++) {
 			printf("%c", *(aa->unique.name+i));
@@ -1818,6 +1842,7 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		for(int i=k; i<20; i++) {
 			printf(" ");
 		}
+		printf(BBLU);
 		printf("4:RETOUR"RESETT" en arriere");
 		printf("\n|    dmg:%d", aa->normal.focusdamage);
 		if(aa->normal.focusdamage==0) {
@@ -1875,13 +1900,20 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		printf(YEL"|   stun:" RESETT "%d" YEL "               stun:" RESETT "%d" YEL "               stun:" RESETT "%d\n", aa->normal.stun, aa->special.stun, aa->unique.stun);
 		printf(MAG"| confus:" RESETT "%d" MAG "             confus:" RESETT "%d" MAG "             confus:" RESETT "%d\n", aa->normal.confused, aa->special.confused, aa->unique.confused);
 	} else if(*choixP==2) {
-		printf(BWHT"|1:");
+	    if(ab->stamina>=2){
+		    printf(BGRN);
+		}
+		printf("|1:");
 		for(int i=0; i<strlen(ab->normal.name); i++) {
 			printf("%c", *(ab->normal.name+i));
 			k=i;
 		}
 		for(int i=k; i<20; i++) {
 			printf(" ");
+		}
+		printf(RESETT);
+		if(ab->stamina>=8){
+		    printf(BGRN);
 		}
 		printf("2:");
 		for(int i=0; i<strlen(ab->special.name); i++) {
@@ -1891,6 +1923,10 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		for(int i=k; i<20; i++) {
 			printf(" ");
 		}
+		printf(RESETT);
+		if(ab->utiliunique==0){
+		    printf(BGRN);
+		}
 		printf("3:");
 		for(int i=0; i<strlen(ab->unique.name); i++) {
 			printf("%c", *(ab->unique.name+i));
@@ -1899,6 +1935,7 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		for(int i=k; i<20; i++) {
 			printf(" ");
 		}
+		printf(BBLU);
 		printf("4:RETOUR"RESETT" en arriere");
 		printf("\n|    dmg:%d", ab->normal.focusdamage);
 		if(ab->normal.focusdamage==0) {
@@ -1956,13 +1993,20 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		printf(YEL"|   stun:" RESETT "%d" YEL "               stun:" RESETT "%d" YEL "               stun:" RESETT "%d\n", ab->normal.stun, ab->special.stun, ab->unique.stun);
 		printf(MAG"| confus:" RESETT "%d" MAG "             confus:" RESETT "%d" MAG "             confus:" RESETT "%d\n", ab->normal.confused, ab->special.confused, ab->unique.confused);
 	} else {
-		printf(BWHT"|1:");
+	    if(ac->stamina>=2){
+		    printf(BGRN);
+		}
+		printf("|1:");
 		for(int i=0; i<strlen(ac->normal.name); i++) {
 			printf("%c", *(ac->normal.name+i));
 			k=i;
 		}
 		for(int i=k; i<20; i++) {
 			printf(" ");
+		}
+		printf(RESETT);
+		if(ac->stamina>=8){
+		    printf(BGRN);
 		}
 		printf("2:");
 		for(int i=0; i<strlen(ac->special.name); i++) {
@@ -1972,6 +2016,10 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		for(int i=k; i<20; i++) {
 			printf(" ");
 		}
+		printf(RESETT);
+		if(ac->utiliunique==0){
+		    printf(BGRN);
+		}
 		printf("3:");
 		for(int i=0; i<strlen(ac->unique.name); i++) {
 			printf("%c", *(ac->unique.name+i));
@@ -1980,6 +2028,7 @@ void AffichAttaque(int *choixP, Bot *aa, Bot *ab, Bot *ac) { //affiche les attaq
 		for(int i=k; i<20; i++) {
 			printf(" ");
 		}
+		printf(BBLU);
 		printf("4:RETOUR"RESETT" en arriere");
 		printf("\n|    dmg:%d", ac->normal.focusdamage);
 		if(ac->normal.focusdamage==0) {
@@ -3469,6 +3518,24 @@ void Checkup(Bot *ja, Bot *jb, Bot *jc, Bot *ra, Bot *rb, Bot *rc, int *turn) { 
 	ra->stamina+=1;
 	rb->stamina+=1;
 	rc->stamina+=1;
+	if(ja->stamina<0) {
+		ja->stamina=0;
+	}
+	if(jb->stamina<0) {
+		jb->stamina=0;
+	}
+	if(jc->stamina<0) {
+		jc->stamina=0;
+	}
+	if(ra->stamina<0) {
+		ra->stamina=0;
+	}
+	if(rb->stamina<0) {
+		rb->stamina=0;
+	}
+	if(rc->stamina<0) {
+		rc->stamina=0;
+	}
 	if(ja->stamina>16) {
 		ja->stamina=16;
 	}
@@ -3563,12 +3630,18 @@ int main() { // |(^-^)/ main
 	Bot bb=Characterbuilder(101);
 	Bot bc=Characterbuilder(101);
 	int dif=0;
-	int mode=0;
+	int mode=-1;
 	int win=0;
-	
+	printf(BCYN"========================================================================================================================================\n  "BBLU" (\\__/)                  (\\__/) _    (\\__/) _                    _(\\__/)   (\\__/)             (\\__/) _   (\\__/)  _(\\__/)  (\\__/) \n   ( OO )                  ( OO ) )    ( OO ) )                  ( \\( oO )   ( OO ).-.        ( (  OO) )  _(  OO)( \\( -O )  ( OO ).  \n");    
+        printf(RESETT" ;-----"BBLU".\\"RESETT"  ,--. ,--.   ,--"BBLU"./"RESETT" ,--,' ,--"BBLU"./"RESETT" ,--,"BBLU"' "RESETT" ,--.   ,--.       ,------.  "BBLU" / "RESETT". --. "BBLU"/ "RESETT" ,-.-"BRED"_/)"BBLU"\\ __-_.'"RESETT"_ (,------.,------. "BBLU"(_)"RESETT"---"BBLU"\\_)"RESETT" \n | .-.  |  |  | |  |   |   \\ |  |\\ |   \\ |  |\\   \\  `.'  /        |   /`. '  | \\-.  \\   |  "BRED"|OO)"RESETT",`'--..._) |  .---'|   /`. '/    _ |   \n | '-' /_) |  | |"BRED"(\\__/)"RESETT"|    \\|  | )|    \\|  | )"BRED"_/)"RESETT"\\     /         |  /  | |.-'-'  |  |  |  |  "BRED"\\"RESETT"|  |  \\  ' |  |    |  /  | |\\  :` `|  \n");
+        printf(" |-. `.    |  |_|"BRED"( OO )"RESETT"|  .     |/ |  .     |/"BRED"\\OO)"RESETT" \\   /          |  |_.' | \\| |_.'  |  |  |"BRED"(_/"RESETT"|  |   ' |(|  '--. |  |_.' | \\..`\\._\n | |  \\  | |  | | "BRED"`-./ "RESETT"|  |\\    |  |  |\\    |  |   /  /\\_         |  .  '.'  |  .-.  | ,|  |_.'|  |   / : |  .--' |  .  '_|.-._)   \\ \n | '--'  /('  '-'  |-' |  | \\   |  |  | \\   |  `-./  /.__)        |  |\\  \\   |  | |  |(_|  |   |  '--'  / |  `---.|  |\\  \\ \\       / \n");
+        printf(" `------'  \\-------/   `--'  `--'  `--'  `--'    `--'             `--' '--'  `--' `--'  `--'   `-------'  `------'`--' '--' `-----'  \n"BCYN"========================================================================================================================================\n"RESETT);
+	for(int i=0; i<6; i++){
+		sleep(1);
+		printf(".\n");
+	}
 	///////////// map.c
 	int position=0;
-	ImprimeMap(26, 121, 1, 1, position);
 	/////////////
 	
 	char *nameA=malloc(sizeof(char)*NAMESIZE);
@@ -3579,7 +3652,7 @@ int main() { // |(^-^)/ main
 	scanf("%s", nameA);
 	getchar();
 	do {
-		printf("Choisir solo: 0 ou Multijoueur: 1 |--> ");
+		printf("\nChoisir solo: 0 ou Multijoueur: 1 |--> ");
 		scanf("%d", &mode);
 		getchar();
 	}
